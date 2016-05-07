@@ -3,9 +3,7 @@ package com.chinahr.along.paperApp;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,40 +18,21 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.chinahr.along.paperApp.dynamic.IDynamic;
 import com.chinahr.along.paperApp.dynamic.IDynamicDemo;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
-
-import dalvik.system.DexClassLoader;
-import dalvik.system.DexFile;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -199,6 +178,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String a = this.getFilesDir().toString();
         Log.e("longlonglong+Env", a + "wwwwwwwwwwwwww");
         mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView.setVisibility(View.GONE);
+        mEmailView.setVisibility(View.GONE);
 //        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 //            @Override
 //            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {

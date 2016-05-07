@@ -1,9 +1,9 @@
-package com.chinahr.along.paperApp;
+package com.chinahr.patch;
 
 import java.lang.reflect.Field;
 
 /**
- * Created by long on 2016/5/4.
+ * Created by dragon on 2016/5/4.
  */
 public class ReflectionUtils {
     public static Object getField(Object obj, Class<?> cl, String field)
