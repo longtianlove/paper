@@ -116,7 +116,13 @@ import static android.system.OsConstants.S_ISDIR;
     }
 
     /**
-     * Splits the given path strings into file elements using the path     * separator, combining the results and filtering out elements     * that don't exist, aren't readable, or aren't either a regular     * file or a directory (as specified). Either string may be empty     * or {@code null}, in which case it is ignored. If both strings     * are empty or {@code null}, or all elements get pruned out, then     * this returns a zero-element list.
+     * Splits the given path strings into file elements using the path
+     * * separator, combining the results and filtering out elements
+     * * that don't exist, aren't readable, or aren't either a regular
+     * * file or a directory (as specified). Either string may be empty
+     * * or {@code null}, in which case it is ignored. If both strings
+     * * are empty or {@code null}, or all elements get pruned out, then
+     * * this returns a zero-element list.
      */
     private static ArrayList<File> splitPaths(String path1, String path2, boolean wantDirectories) {
         ArrayList<File> result = new ArrayList<File>();
@@ -126,7 +132,8 @@ import static android.system.OsConstants.S_ISDIR;
     }
 
     /**
-     * Helper for {@link #splitPaths}, which does the actual splitting     * and filtering and adding to a result.
+     * Helper for {@link #splitPaths}, which does the actual splitting
+     * * and filtering and adding to a result.
      */
     private static void splitAndAdd(String searchPath, boolean directoriesOnly, ArrayList<File> resultList) {
         if (searchPath == null) {
@@ -317,7 +324,8 @@ import static android.system.OsConstants.S_ISDIR;
             }
             try {
                 zipFile = new ZipFile(zip);
-            } catch (IOException ioe) {                /*                 * Note: ZipException (a subclass of IOException)                 * might get thrown by the ZipFile constructor                 * (e.g. if the file isn't actually a zip/jar                 * file).                 */
+            } catch (IOException ioe) {
+                    /*                 * Note: ZipException (a subclass of IOException)                 * might get thrown by the ZipFile constructor                 * (e.g. if the file isn't actually a zip/jar                 * file).                 */
 //                System.logE("Unable to open zip file: " + file, ioe);
                 zipFile = null;
             }

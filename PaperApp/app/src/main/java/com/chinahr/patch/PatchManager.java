@@ -22,8 +22,8 @@ public class PatchManager {
         try {
             DexClassLoader cl = new DexClassLoader(outputPath + File.separator + "test.jar",
                     outputPath, null, context.getClassLoader().getParent());
-            Log.e("longtianlove",cl.toString());
-            Log.e("longtianlove",context.getClassLoader().toString());
+//            Log.e("longtianlove",cl.toString());
+//            Log.e("longtianlove",context.getClassLoader().toString());
             Object baseDexElements = getDexElements(getPathList(context.getClassLoader()));
             Object newDexElements = getDexElements(getPathList(cl));
             Object allDexElements = combineArray(newDexElements, baseDexElements);

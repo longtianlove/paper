@@ -28,7 +28,18 @@ public final class DexFile1 {
     }
 
     /**
-     * Opens a DEX file from a given filename. This will usually be a ZIP/JAR     * file with a "classes.dex" inside.     *     * The VM will generate the name of the corresponding file in     * /data/dalvik-cache and open it, possibly creating or updating     * it first if system permissions allow.  Don't pass in the name of     * a file in /data/dalvik-cache, as the named file is expected to be     * in its original (pre-dexopt) state.     *     * @param fileName     *            the filename of the DEX file     *     * @throws IOException     *             if an I/O error occurs, such as the file not being found or     *             access rights missing for opening it
+     * Opens a DEX file from a given filename.
+     * This will usually be a ZIP/JAR
+     * * file with a "classes.dex" inside.
+     * *     * The VM will generate the name of the corresponding file in
+     * * /data/dalvik-cache and open it, possibly creating or updating
+     * * it first if system permissions allow.  Don't pass in the name of
+     * * a file in /data/dalvik-cache, as the named file is expected to be
+     * * in its original (pre-dexopt) state.     *
+     * * @param fileName     *            the filename of the DEX file     *
+     * * @throws IOException     *
+     * if an I/O error occurs, such as the file not being found or     *
+     * access rights missing for opening it
      */
     public DexFile1(String fileName) throws IOException {
         mCookie = openDexFile(fileName, null, 0);
@@ -216,7 +227,15 @@ public final class DexFile1 {
     public static final byte DEXOPT_NEEDED = 2;
 
     /**
-     * Returns UP_TO_DATE if the VM believes that the apk/jar file     * is up to date, PATCHOAT_NEEDED if it believes that the file is up     * to date but it must be relocated to match the base address offset,     * and DEXOPT_NEEDED if it believes that it is out of date and should     * be passed through "dexopt" again.     *     * @param fileName the absolute path to the apk/jar file to examine.     * @return DEXOPT_NEEDED if dexopt should be called on the file,     *         PATCHOAT_NEEDED if we need to run "patchoat" on it and     *         UP_TO_DATE otherwise.     * @throws java.io.FileNotFoundException if fileName is not readable,     *         not a file, or not present.     * @throws java.io.IOException if fileName is not a valid apk/jar file or     *         if problems occur while parsing it.     * @throws java.lang.NullPointerException if fileName is null.     * @throws dalvik.system.StaleDexCacheError if the optimized dex file     *         is stale but exists on a read-only partition.     *     * @hide
+     * Returns UP_TO_DATE if the VM believes that the apk/jar file
+     * * is up to date, PATCHOAT_NEEDED if it believes that the file is up
+     * * to date but it must be relocated to match the base address offset,
+     * * and DEXOPT_NEEDED if it believes that it is out of date and should
+     * * be passed through "dexopt" again.     *
+     * * @param fileName the absolute path to the apk/jar file to examine.
+     * * @return DEXOPT_NEEDED if dexopt should be called on the file,     *
+     * PATCHOAT_NEEDED if we need to run "patchoat" on it and     *
+     * UP_TO_DATE otherwise.     * @throws java.io.FileNotFoundException if fileName is not readable,     *         not a file, or not present.     * @throws java.io.IOException if fileName is not a valid apk/jar file or     *         if problems occur while parsing it.     * @throws java.lang.NullPointerException if fileName is null.     * @throws dalvik.system.StaleDexCacheError if the optimized dex file     *         is stale but exists on a read-only partition.     *     * @hide
      */
     public static native byte isDexOptNeededInternal(String fileName, String pkgname, String instructionSet, boolean defer) throws FileNotFoundException, IOException;
 }
