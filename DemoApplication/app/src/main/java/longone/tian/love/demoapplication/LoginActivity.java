@@ -1,4 +1,4 @@
-package com.chinahr.along.paperApp;
+package longone.tian.love.demoapplication;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -18,18 +18,16 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.chinahr.along.paperApp.dynamic.IDynamicDemo;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,110 +61,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
-
-    public void doSomething() {
-//        final File pathFile = new File(getFilesDir()
-//                + File.separator + "test.jar");
-//        final File optFile = new File(getFilesDir().getAbsolutePath());
-//        if (!pathFile.exists()) {
-//            try {
-//                pathFile.createNewFile();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        try {
-//            InputStream inputStream = getResources().openRawResource(R.raw.test);
-//            FileOutputStream outputStream = new FileOutputStream(pathFile);
-//            int result;
-//            while ((result = inputStream.read()) != -1) {
-//                outputStream.write(result);
-//            }
-//            inputStream.close();
-//            outputStream.flush();
-//            outputStream.close();
-//            DexClassLoader cl = new DexClassLoader(pathFile.getAbsolutePath(),
-//                    optFile.getAbsolutePath(), null, getClassLoader().getParent());
-//            Class newClazz = cl.loadClass("com.chinahr.along.paperApp.dynamic.IDynamicDemo");
-//            Object o1 = newClazz.newInstance();
-//            Method method1 = newClazz.getMethod("hello", null);
-//            Log.e("long--new", method1.invoke(o1, null) + "***********");
-//            Object baseDexElements = getDexElements(getPathList(getClassLoader()));
-//            Object newDexElements = getDexElements(getPathList(cl));
-//            Object allDexElements = combineArray(newDexElements, baseDexElements);
-//            Object pathList = getPathList(getClassLoader());
-//            ReflectionUtils.setField(pathList, pathList.getClass(), "dexElements", allDexElements);
-
-//            Class oldClazz = Class.forName("com.chinahr.along.paperApp.dynamic.IDynamicDemo");
-//            Object o2 = oldClazz.newInstance();
-//            Method method2 = oldClazz.getMethod("hello", null);
-////            method2=method1;
-//            Log.e("long--old", method2.invoke(o2, null) + "***********");
-            IDynamicDemo olddemo=new IDynamicDemo();
-
-            Log.e("long--old", olddemo.hello() + "***********");
-
-//            IDynamic iDynamic = (IDynamic) newClazz.newInstance();
-//            Log.e("longlonglong", iDynamic.hello() + "***********");
-//        } catch (Exception e) {
-//            Log.e("longlonglong", e.toString() + "***********");
-//        }
-
-    }
-
-
-//    private static Object getDexElements(Object paramObject)
-//            throws IllegalArgumentException, NoSuchFieldException, IllegalAccessException {
-//        return ReflectionUtils.getField(paramObject, paramObject.getClass(), "dexElements");
-//    }
-//    private static Object getPathList(Object baseDexClassLoader)
-//            throws IllegalArgumentException, NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
-//        return ReflectionUtils.getField(baseDexClassLoader, Class.forName("dalvik.system.BaseDexClassLoader"), "pathList");
-//    }
-//    private static Object combineArray(Object firstArray, Object secondArray) {
-//        Class<?> localClass = firstArray.getClass().getComponentType();
-//        int firstArrayLength = Array.getLength(firstArray);
-//        int allLength = firstArrayLength + Array.getLength(secondArray);
-//        Object result = Array.newInstance(localClass, allLength);
-//        for (int k = 0; k < allLength; ++k) {
-//            if (k < firstArrayLength) {
-//                Array.set(result, k, Array.get(firstArray, k));
-//            } else {
-//                Array.set(result, k, Array.get(secondArray, k - firstArrayLength));
-//            }
-//        }
-//        return result;
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,26 +69,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-        String a = this.getFilesDir().toString();
-        Log.e("longlonglong+Env", a + "wwwwwwwwwwwwww");
+
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setVisibility(View.GONE);
-        mEmailView.setVisibility(View.GONE);//main chanaged
+        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                    attemptLogin();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-//                attemptLogin();
-                doSomething();
+                attemptLogin();
             }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void populateAutoComplete() {
@@ -214,7 +111,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new OnClickListener() {
+                    .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
@@ -246,7 +143,52 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+    private void attemptLogin() {
+        if (mAuthTask != null) {
+            return;
+        }
 
+        // Reset errors.
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
+
+        // Store values at the time of the login attempt.
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid password, if the user entered one.
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            showProgress(true);
+            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask.execute((Void) null);
+        }
+    }
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
@@ -335,46 +277,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Login Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.chinahr.along.paperApp/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Login Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.chinahr.along.paperApp/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
     }
 
 
