@@ -18,7 +18,7 @@ public class PatchApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-//        dosomething();
+        dosomething();
     }
     public void dosomething() {
         final File pathFile = new File(getFilesDir()
